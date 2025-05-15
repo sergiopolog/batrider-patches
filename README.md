@@ -27,9 +27,17 @@ To-Do:
 
 ## How to use
 
-Extract any B version rom set (i.e. `batrider`, `batrideru`, `batriderc`, `batriderj` or `batriderk`). Use your favorite IPS patch applier to patch `prg0_____.u22` and `prg1b.u23` using the respective IPS files in this repo. `prg0.u22` could have different name for each supported rom set, that's why I put underscores on it. Use the proper one matching your target rom file.
+Extract any B version rom set (i.e. `batrider`, `batrideru`, `batriderc`, `batriderj` or `batriderk`). Use your favorite IPS patch applier to patch `prg0b.u22` and `prg1b.u23` using the respective IPS files in this repo. `prg0.u22` ROM file is different between existings sets in B version, but only the first byte differs on them, therefore the same `prg0b.u22.ips` should work for any version of `prg0___.u22` ROM file.
 
 MAME will complain about incorrect rom checksums. You can ignore this and/or may need to launch the game directly as an argument, e.g. `./mame batriderj`
+
+Expected hashes after applying patch (for Japan version):
+
+| File          | SHA1                                       |
+| :-----------: | :----------------------------------------: |
+| **prg0b.u22** | `20ee02ce4bc41c9647bbab145ecf8244824840ba` |
+| **prg1b.u23** | `7141586d5ca712ddf4f6aaf00b67a18888b99a54` |
+
 
 ## Source
 

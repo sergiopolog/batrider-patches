@@ -8,8 +8,8 @@ FREE_OFFSET = $80000
 
 
 	ORG $100
-	dc.l $01E6CDD4	; Updated hash for ROM0 with current changes in this patch
-	dc.l $0264491D	; Updated hash for ROM1 with current changes in this patch
+	dc.l $01E6D1AF	; Updated hash for ROM0 with current changes in this patch
+	dc.l $02644E52	; Updated hash for ROM1 with current changes in this patch
 
 
 ; In this instruction, original code calls to 'read-inputs' subroutine on each frame ('jsr $205c'), in order to load player inputs values into RAM
@@ -44,7 +44,7 @@ FREE_OFFSET = $80000
 
 
 
-; Replace 'STAGE EDIT' with ' SHOW RANK'
+; Replace 'STAGE EDIT' text with ' SHOW RANK'
 	ORG $12B02
 	dc.b $20	; ' ' character index
 	dc.b $53	; 'S' character index
@@ -118,15 +118,15 @@ FREE_OFFSET = $80000
 ; Same happens again for ROM1 at $178C2, taking the pre-computed hash of ROM1 from address $104, and the calculated hash for ROM1 was stored on RAM address: $20E702
 
 ; Calculated hashes from current changes in ROM0 and ROM1:
-; - ROM0: $01E6CDD4
-; - ROM1: $0264491D
+; - ROM0: $01E6D1AF
+; - ROM1: $02644E52
 
 ; ----- UNCOMMENT THIS DURING PATCH DEVELOPMENT, IF THE HASHES FOR ROM0 AND ROM1 ARE STILL NOT ADJUSTED
 ; In this instruction, original code branches to 'ROM OK' subroutine after comparing the expected hash with the computed one got from program ROMs in the ROM/RAM check.
-	ORG $17A2C
-	bra $177CE	; instead of branching to 'ROM OK' subroutine only if comparation matches, branch in any case, bypassing the ROM check
+;	ORG $17A2C
+;	bra $177CE	; instead of branching to 'ROM OK' subroutine only if comparation matches, branch in any case, bypassing the ROM check
 
-; when the patch is complete, check which is the computed value of the two ROM hashes and put them on the address positions: $100 and $104
+; when the patch is complete, check which is the computed value of the two ROM hashes on instruction at $17A2C and put them on the address positions: $100 and $104 respectively
 
 
 
@@ -142,7 +142,7 @@ FREE_OFFSET = $80000
 
 
 
-; Replace 'STAGE EDIT' with 'SHOW RANK '
+; Replace 'STAGE EDIT' text with 'SHOW RANK '
 	ORG $18956
 	dc.b $53	; 'S' character index
 	dc.b $48	; 'H' character index
@@ -421,9 +421,6 @@ rank_display:
 	jsr $12640
 
 
-; Rutina para sumar o restar Rank:	$599A
-; Unas instrucciones más tarde ($59B4) comprueba si tras la suma ha excedido el rank minimo guardado en $20F9D8
-
 
 ; Check if Dip Switch 2 of DSW3 is enabled: If Enabled, value of $FF is set at address: $20fa02
 	move.b ($20fa02),d0
@@ -491,10 +488,3 @@ min_percentage:
 
 end_display:
 	rts
-
-
-
-
-
-
-; Instruction at $1AAC writes the value of the 'rank_start_base_mul' at $20F9CE.w
